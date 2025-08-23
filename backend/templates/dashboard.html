@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% macro hms(sec) %}{% set h=sec//3600 %}{% set m=(sec%3600)//60 %}{% set s=sec%60 %}{{ "%02d:%02d:%02d"|format(h,m,s) }}{% endmacro %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="m-0">Dashboard</h4>
+  <div>
+    <a class="btn btn-sm {{ 'btn-primary' if range_sel=='today' else 'btn-outline-light' }}" href="{{ link_range('today') }}">Today</a>
+    <a class="btn btn-sm {{ 'btn-primary' if range_sel=='week' else 'btn-outline-light' }}" href="{{ link_range('week') }}">This week</a>
+    <a class="btn btn-sm {{ 'btn-primary' if range_sel=='month' else 'btn-outline-light' }}" href="{{ link_range('month') }}">This month</a>
+  </div>
+</div>
+<p class="text-muted">Range: {{ start }} → {{ end }}</p>
+
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="card card-body mb-3">
+      <h5 class="mb-3">My activity</h5>
+      <div class="row g-3">
+        <div class="col-md-4"><div class="p-3 border rounded"><div class="text-muted small">Total time</div><div class="fs-4 fw-bold">{{ hms(me.total_secs) }}</div></div></div>
+        <div class="col-md-4"><div class="p-3 border rounded"><div class="text-muted small">Keyboard / Mouse</div><div class="fs-5">{{ me.key_sum }} / {{ me.mouse_sum }}</div></div></div>
+        <div class="col-md-4"><div class="p-3 border rounded"><div class="text-muted small">Last online</div><div class="fs-6">{{ me.last_seen or '—' }}</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    {% if role == 'admin' %}
+    <div class="card card-body mb-3">
+      <h5 class="mb-3">Create project</h5>
+      <form method="post" action="/projects/create" class="d-flex gap-2">
+        <input class="form-control" type="text" name="name" placeholder="Project name" required>
+        <button class="btn btn-secondary">Create</button>
+      </form>
+    </div>
+    <div class="card card-body">
+      <h5 class="mb-3">Invite member</h5>
+      <form method="post" action="/invite">
+        <div class="mb-2"><input class="form-control" type="email" name="email" placeholder="member@example.com" required></div>
+        <div class="mb-3">
+          <select class="form-select" name="project_id" required>
+            {% for p in projects %}
+              <option value="{{ p.id }}">{{ p.name }}</option>
+            {% endfor %}
+          </select>
+          <div class="text-muted small mt-1">Invited member will work in selected project only.</div>
+        </div>
+        <button class="btn btn-primary">Generate Invite Link</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if role == 'admin' %}
+<div class="card card-body mt-3">
+  <h5 class="mb-3">Team activity (project-scoped)</h5>
+  {% if team_cards %}
+    {% for m in team_cards %}
+      <div class="border rounded px-3 py-2 mb-3">
+        <div class="d-flex justify-content-between">
+          <div><div class="fw-semibold">{{ m.email }}</div><div class="text-muted small">{{ m.role|capitalize }}</div></div>
+          <div class="text-end"><div class="text-muted small">Total</div><div class="fw-bold">{{ hms(m.total_secs) }}</div></div>
+        </div>
+        <div class="text-muted small mt-1">K/M: {{ m.key_sum }} / {{ m.mouse_sum }} · Last: {{ m.last_seen or '—' }}</div>
+        <div class="mt-2"><a class="btn btn-sm btn-outline-light" href="/admin/member/{{ m.user_id }}?range={{ range_sel }}">View Activity</a></div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="text-muted">No members.</div>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}
