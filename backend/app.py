@@ -44,12 +44,14 @@ def now_utc():
 
 # ---------------- Models ----------------
 class Organization(Base):
+    """Represents a workspace organization that owns projects and members."""
     __tablename__ = "organizations"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     created_at = Column(DateTime, default=now_utc)
 
 class User(Base):
+    """Registered user account with email-based authentication."""
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     email = Column(String, unique=True, nullable=False)
@@ -93,6 +95,7 @@ class Task(Base):
     name = Column(String, nullable=False)
 
 class TimeSession(Base):
+    """A tracked work session with start/end timestamps for a given task."""
     __tablename__ = "time_sessions"
     id = Column(Integer, primary_key=True)
     org_id = Column(Integer, ForeignKey("organizations.id"), nullable=False)
