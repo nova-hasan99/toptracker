@@ -157,17 +157,24 @@ def ensure_schema():
 ensure_schema()
 
 # ---------------- Helpers ----------------
-def pw_hash(p): return bcrypt.hash(p)
-def pw_ok(p, h): return bcrypt.verify(p, h)
+def pw_hash(p: str) -> str:
+    """Hash a plaintext password using bcrypt."""
+    return bcrypt.hash(p)
 
-def current_context():
+def pw_ok(p: str, h: str) -> bool:
+    """Verify a plaintext password against a bcrypt hash."""
+    return bcrypt.verify(p, h)
+
+def current_context() -> tuple[int, int, str]:
+    """Extract (user_id, org_id, role) from the current JWT."""
     j = get_jwt()
     uid = int(get_jwt_identity())
     org_id = int(j["org_id"])
     role = j.get("role","member")
     return uid, org_id, role
 
-def as_aware(dt):
+def as_aware(dt: datetime | None) -> datetime | None:
+    """Ensure a datetime is timezone-aware, defaulting to UTC."""
     if dt is None: return None
     return dt if dt.tzinfo is not None else dt.replace(tzinfo=timezone.utc)
 
