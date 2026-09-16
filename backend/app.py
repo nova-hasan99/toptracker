@@ -61,6 +61,7 @@ class User(Base):
     default_org = relationship("Organization")
 
 class Membership(Base):
+    """Links a user to an organization with a role (admin or member)."""
     __tablename__ = "memberships"
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
@@ -71,6 +72,7 @@ class Membership(Base):
     org = relationship("Organization")
 
 class Project(Base):
+    """A named project within an organization that tasks are grouped under."""
     __tablename__ = "projects"
     id = Column(Integer, primary_key=True)
     org_id = Column(Integer, ForeignKey("organizations.id"), nullable=False)
@@ -87,6 +89,7 @@ class Assignment(Base):
     __table_args__ = (UniqueConstraint("org_id", "user_id", "project_id", name="uq_assignment"),)
 
 class Task(Base):
+    """A unit of work within a project, created by a user, that time is tracked against."""
     __tablename__ = "tasks"
     id = Column(Integer, primary_key=True)
     org_id = Column(Integer, ForeignKey("organizations.id"), nullable=False)
