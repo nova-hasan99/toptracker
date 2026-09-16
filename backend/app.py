@@ -108,6 +108,7 @@ class TimeSession(Base):
     ended_at = Column(DateTime)
 
 class Heartbeat(Base):
+    """Periodic activity snapshot (keystrokes, mouse events, idle flag, optional screenshot)."""
     __tablename__ = "heartbeats"
     id = Column(Integer, primary_key=True)
     org_id = Column(Integer, ForeignKey("organizations.id"), nullable=False)
@@ -120,6 +121,7 @@ class Heartbeat(Base):
     screenshot_path = Column(String, nullable=True)
 
 class Invitation(Base):
+    """Token-based invitation linking a new user to an organization and project."""
     __tablename__ = "invitations"
     id = Column(Integer, primary_key=True)
     org_id = Column(Integer, ForeignKey("organizations.id"), nullable=False)
@@ -183,6 +185,13 @@ def as_aware(dt: datetime | None) -> datetime | None:
     """Ensure a datetime is timezone-aware, defaulting to UTC."""
     if dt is None: return None
     return dt if dt.tzinfo is not None else dt.replace(tzinfo=timezone.utc)
+
+def format_duration(total_seconds: int) -> str:
+    """Convert a duration in seconds to an HH:MM:SS string."""
+    h = total_seconds // 3600
+    m = (total_seconds % 3600) // 60
+    s = total_seconds % 60
+    return f"{h:02d}:{m:02d}:{s:02d}"
 
 def admin_required(fn):
     @wraps(fn)
@@ -517,8 +526,7 @@ def export_csv():
         w = csv.writer(sio)
         w.writerow(["Date","Time","Activity Name","Project","Member","Duration (h:m:s)","Screenshots"])
         for r in items:
-            sec = r["duration_secs"]; h=sec//3600; m=(sec%3600)//60; s=sec%60
-            w.writerow([r["date"], r["time_range"], r["activity"], r["project"], r["user_email"], f"{h:02d}:{m:02d}:{s:02d}", r["screenshots"]])
+            w.writerow([r["date"], r["time_range"], r["activity"], r["project"], r["user_email"], format_duration(r["duration_secs"]), r["screenshots"]])
         output = sio.getvalue()
         filename = f"activity_{user_id}_{int(time.time())}.csv"
         return Response(output, mimetype="text/csv",
