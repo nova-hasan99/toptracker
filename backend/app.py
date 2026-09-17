@@ -201,7 +201,8 @@ def admin_required(fn):
         return fn(*a, **k)
     return wrapper
 
-def parse_range(qs):
+def parse_range(qs) -> tuple[datetime, datetime]:
+    """Resolve a request's ?range=today|week|month|from/to query params into a (start, end) UTC datetime pair."""
     today = datetime.now(timezone.utc).date()
     preset = (qs.get("range") or "today").lower()
     if preset == "today":
