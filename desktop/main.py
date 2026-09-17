@@ -19,11 +19,14 @@ SOUNDS_DIR = Path(__file__).parent / "sounds"
 
 # ---------------- Sound Manager ----------------
 class SoundManager(QtCore.QObject):
+    """Manages cached QSoundEffect instances for UI event sounds."""
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.effects: dict[str, QSoundEffect] = {}
 
-    def play(self, name: str, volume: float = 0.75):
+    def play(self, name: str, volume: float = 0.75) -> None:
+        """Play a named sound effect, loading and caching it on first use."""
         file_map = {
             "login": "login.wav",
             "toggle_on": "toggle_on.wav",
@@ -101,7 +104,8 @@ def on_move(*_):
     state.last_activity = time.time()
 
 # ---------------- Screenshot utilities ----------------
-def take_screenshot_bytes():
+def take_screenshot_bytes() -> bytes:
+    """Capture the full screen and return the image as PNG bytes."""
     with mss.mss() as sct:
         monitor = sct.monitors[0]
         img = sct.grab(monitor)
