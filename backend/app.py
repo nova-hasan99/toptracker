@@ -39,7 +39,8 @@ engine = create_engine(f"sqlite:///{DB_PATH}", echo=False, future=True)
 SessionLocal = scoped_session(sessionmaker(bind=engine, autoflush=False, autocommit=False))
 Base = declarative_base()
 
-def now_utc():
+def now_utc() -> datetime:
+    """Return the current time as a timezone-aware UTC datetime."""
     return datetime.now(timezone.utc)
 
 # ---------------- Models ----------------
