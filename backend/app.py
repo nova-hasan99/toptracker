@@ -135,7 +135,13 @@ class Invitation(Base):
 Base.metadata.create_all(engine)
 
 # --------- ensure schema for old DB ---------
-def ensure_schema():
+def ensure_schema() -> None:
+    """Run forward-compatible schema migrations on an existing SQLite database.
+
+    Adds any missing tables (projects, assignments) and columns
+    (project_id, org_id, default_org_id) so older databases are
+    seamlessly upgraded on startup.
+    """
     with sqlite3.connect(DB_PATH) as con:
         cur = con.cursor()
         def col_exists(table, col):
@@ -224,8 +230,8 @@ def parse_range(qs) -> tuple[datetime, datetime]:
         end = datetime.fromisoformat(t).replace(tzinfo=timezone.utc) + timedelta(days=1)
     return start, end
 
-def user_project_ids(db, org_id, user_id):
-    """যে প্রজেক্টে ইউজার আসাইন করা আছে সেই আইডিগুলো"""
+def user_project_ids(db, org_id: int, user_id: int) -> set[int]:
+    """Return the set of project IDs the user is assigned to in the given org."""
     ids = [r.project_id for r in db.query(Assignment).filter_by(org_id=org_id, user_id=user_id).all()]
     return set(ids)
 
