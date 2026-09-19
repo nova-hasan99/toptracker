@@ -80,7 +80,8 @@ class TrackerState:
 state = TrackerState()
 
 # ---------------- API helpers ----------------
-def api_headers():
+def api_headers() -> dict[str, str]:
+    """Return the Authorization header dict for the current session, or empty if logged out."""
     return {"Authorization": f"Bearer {state.token}"} if state.token else {}
 
 def api_post(path, json=None, files=None, data=None):
