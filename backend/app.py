@@ -20,7 +20,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship, scoped_session
 from werkzeug.utils import secure_filename
 
-// this is a time tracking backend service that provides both web and API interfaces for managing users, organizations, projects, tasks, time sessions, and heartbeats. It uses Flask for the web framework, SQLAlchemy for ORM, and JWT for authentication.
+# This is a time tracking backend service that provides both web and API interfaces for managing users, organizations, projects, tasks, time sessions, and heartbeats. It uses Flask for the web framework, SQLAlchemy for ORM, and JWT for authentication.
 
 # ---------------- App config ----------------
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -313,6 +313,12 @@ def sum_session_seconds(db, org_id, user_id, start, end, allow_projects: set) ->
     return total
 
 def activity_snapshot(db, org_id, user_id, start, end, allow_projects: set, limit_ss=8):
+    """Build a summary snapshot of a user's activity within a time range.
+
+    Returns total tracked seconds, the last-seen heartbeat timestamp,
+    aggregate key/mouse counts, and up to `limit_ss` recent screenshot
+    URLs, all scoped to `allow_projects` when provided.
+    """
     total_secs = sum_session_seconds(db, org_id, user_id, start, end, allow_projects)
     last_hb = db.query(Heartbeat).join(TimeSession, Heartbeat.session_id==TimeSession.id)\
         .join(Task, TimeSession.task_id==Task.id)\
