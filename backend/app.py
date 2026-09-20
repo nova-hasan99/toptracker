@@ -20,6 +20,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship, scoped_session
 from werkzeug.utils import secure_filename
 
+// this is a time tracking backend service that provides both web and API interfaces for managing users, organizations, projects, tasks, time sessions, and heartbeats. It uses Flask for the web framework, SQLAlchemy for ORM, and JWT for authentication.
+
 # ---------------- App config ----------------
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DB_PATH = os.path.join(BASE_DIR, "tracker.db")
