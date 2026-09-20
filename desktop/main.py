@@ -98,11 +98,13 @@ def api_get(path, params=None):
     return r.json()
 
 # ---------------- Activity listeners ----------------
-def on_key(_):
+def on_key(_) -> None:
+    """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
     state.key_count += 1
     state.last_activity = time.time()
 
-def on_move(*_):
+def on_move(*_) -> None:
+    """Pynput mouse listener callback: bump the mouse counter and refresh activity timestamp."""
     state.mouse_count += 1
     state.last_activity = time.time()
 
