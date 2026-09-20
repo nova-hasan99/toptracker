@@ -97,6 +97,13 @@ def api_get(path, params=None):
     r.raise_for_status()
     return r.json()
 
+def format_duration(seconds: int) -> str:
+    """Format a duration in seconds as H:MM:SS for display in the UI."""
+    seconds = max(0, int(seconds))
+    hrs, rem = divmod(seconds, 3600)
+    mins, secs = divmod(rem, 60)
+    return f"{hrs}:{mins:02d}:{secs:02d}"
+
 # ---------------- Activity listeners ----------------
 def on_key(_) -> None:
     """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
