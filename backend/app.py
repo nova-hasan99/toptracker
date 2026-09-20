@@ -202,6 +202,14 @@ def format_duration(total_seconds: int) -> str:
     s = total_seconds % 60
     return f"{h:02d}:{m:02d}:{s:02d}"
 
+def format_duration_compact(total_seconds: int) -> str:
+    """Convert a duration in seconds to a short "1h 5m" style string, omitting zero units."""
+    h = total_seconds // 3600
+    m = (total_seconds % 3600) // 60
+    if h and m:
+        return f"{h}h {m}m"
+    return f"{h}h" if h else f"{m}m"
+
 def admin_required(fn):
     """Route decorator that aborts with 403 unless the current user's role is admin.
 
