@@ -85,12 +85,14 @@ def api_headers() -> dict[str, str]:
     return {"Authorization": f"Bearer {state.token}"} if state.token else {}
 
 def api_post(path, json=None, files=None, data=None):
+    """POST to the backend API and return the parsed JSON response, raising on HTTP errors."""
     r = requests.post(f"{API_BASE}{path}", json=json, files=files, data=data,
                       headers=api_headers(), timeout=20)
     r.raise_for_status()
     return r.json()
 
 def api_get(path, params=None):
+    """GET from the backend API and return the parsed JSON response, raising on HTTP errors."""
     r = requests.get(f"{API_BASE}{path}", params=params, headers=api_headers(), timeout=20)
     r.raise_for_status()
     return r.json()
