@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% macro hms(sec) %}{% set h=sec//3600 %}{% set m=(sec%3600)//60 %}{% set s=sec%60 %}{{ "%02d:%02d:%02d"|format(h,m,s) }}{% endmacro %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="m-0">{{ title or "Activity" }}</h4>
+  <div>
+    <a class="btn btn-sm {{ 'btn-primary' if range_sel=='today' else 'btn-outline-light' }}" href="?range=today">Today</a>
+    <a class="btn btn-sm {{ 'btn-primary' if range_sel=='week' else 'btn-outline-light' }}" href="?range=week">This week</a>
+    <a class="btn btn-sm {{ 'btn-primary' if range_sel=='month' else 'btn-outline-light' }}" href="?range=month">This month</a>
+    <a class="btn btn-sm btn-success ms-2" href="/export.csv?{{ request.query_string|safe }}">Export CSV</a>
+  </div>
+</div>
+<p class="text-muted">Range: {{ start }} → {{ end }}</p>
+
+<div class="card card-body">
+  <div class="table-responsive">
+    <table class="table table-dark table-striped align-middle">
+      <thead><tr><th>Date</th><th>Time</th><th>Activity Name</th><th>Project</th><th>Duration</th><th>Screenshots</th></tr></thead>
+      <tbody>
+      {% for r in items %}
+        <tr>
+          <td>{{ r.date }}</td>
+          <td>{{ r.time_range }}</td>
+          <td>{{ r.activity }}</td>
+          <td>{{ r.project }}</td>
+          <td>{{ hms(r.duration_secs) }}</td>
+          <td>{{ r.screenshots }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6" class="text-muted">No activity in this range.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

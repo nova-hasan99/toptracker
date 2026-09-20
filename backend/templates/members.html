@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h4 class="mb-3">Team members</h4>
+<div class="card card-body">
+  <ul class="list-group">
+    {% for m in members %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div><div class="fw-semibold">{{ m.user.email }}</div><div class="text-muted small">{{ m.role|capitalize }}</div></div>
+      <div><a class="btn btn-sm btn-primary" href="/admin/member/{{ m.user_id }}">View Activity</a></div>
+    </li>
+    {% else %}
+    <li class="list-group-item text-muted">No members.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

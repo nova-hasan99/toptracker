@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+backend/.venv/
+desktop/.venv/
+
+# Distribution / build
+desktop/build/
+desktop/dist/
+*.spec
+
+# SQLite database (local dev only, not production)
+backend/tracker.db
+
+# Uploads and screenshots
+backend/uploads/
+
+# Logs
+*.log
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+Thumbs.db
