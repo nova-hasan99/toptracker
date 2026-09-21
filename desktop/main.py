@@ -252,7 +252,8 @@ class ToggleButton(QtWidgets.QAbstractButton):
         p.drawEllipse(QtCore.QRectF(x, 3, knob_d, knob_d))
 
 # ---------------- Heartbeat worker ----------------
-def heartbeat_worker(interval_sec=15):
+def heartbeat_worker(interval_sec: int = 15) -> None:
+    """Poll loop: send periodic heartbeats and trigger scheduled screenshots while a session is active."""
     while not state.stop_flag:
         if state.session_id:
             now = time.time()
