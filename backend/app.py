@@ -657,6 +657,7 @@ def api_tasks_create():
 @app.post("/sessions/start")
 @jwt_required()
 def api_sessions_start():
+    """Start a new time session for the caller, closing any session left open."""
     uid, org_id, role = current_context()
     task_id = int((request.json or {}).get("task_id",0))
     db = SessionLocal()
@@ -676,6 +677,7 @@ def api_sessions_start():
 @app.post("/sessions/stop")
 @jwt_required()
 def api_sessions_stop():
+    """Stop the caller's currently open time session, if any."""
     uid, org_id, _ = current_context()
     db = SessionLocal()
     try:
