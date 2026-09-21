@@ -182,6 +182,10 @@ def pw_ok(p: str, h: str) -> bool:
     """Verify a plaintext password against a bcrypt hash."""
     return bcrypt.verify(p, h)
 
+def to_bool(raw: str) -> bool:
+    """Parse a truthy string ('true'/'1'/'yes', case-insensitive) into a bool."""
+    return str(raw).strip().lower() in ("true", "1", "yes")
+
 def current_context() -> tuple[int, int, str]:
     """Extract (user_id, org_id, role) from the current JWT."""
     j = get_jwt()
@@ -704,7 +708,7 @@ def api_heartbeats():
         hb = Heartbeat(org_id=org_id, session_id=sid,
                        key_count=int(form.get("key_count",0)),
                        mouse_count=int(form.get("mouse_count",0)),
-                       is_idle=(form.get("is_idle","false")=="true"),
+                       is_idle=to_bool(form.get("is_idle", "false")),
                        note=form.get("note",""))
         if "screenshot" in request.files:
             f = request.files["screenshot"]
