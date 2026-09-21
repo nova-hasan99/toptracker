@@ -497,7 +497,11 @@ class MainWindow(QtWidgets.QWidget):
         pass
 
 # ---------------- Boot ----------------
-def main():
+def main() -> None:
+    """Wire up global input listeners, start the heartbeat worker, and launch the Qt app.
+
+    Blocks until the login dialog and (if accepted) the main window close.
+    """
     # global listeners
     kl = keyboard.Listener(on_press=on_key)
     ml = mouse.Listener(on_move=on_move, on_click=lambda *a: on_move(), on_scroll=lambda *a: on_move())
