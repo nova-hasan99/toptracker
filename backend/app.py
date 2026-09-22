@@ -356,6 +356,11 @@ def activity_snapshot(db, org_id, user_id, start, end, allow_projects: set, limi
 
 # ---------------- WEB auth helpers ----------------
 def web_login_required(view):
+    """Route decorator that redirects to the login page unless a user is signed in.
+
+    Checks for "uid" in the Flask session, mirroring the JWT-based
+    admin_required check used by the API routes.
+    """
     @wraps(view)
     def w(*a, **k):
         if "uid" not in session:
