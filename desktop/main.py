@@ -84,14 +84,14 @@ def api_headers() -> dict[str, str]:
     """Return the Authorization header dict for the current session, or empty if logged out."""
     return {"Authorization": f"Bearer {state.token}"} if state.token else {}
 
-def api_post(path, json=None, files=None, data=None):
+def api_post(path: str, json: dict | None = None, files: dict | None = None, data: dict | None = None) -> dict:
     """POST to the backend API and return the parsed JSON response, raising on HTTP errors."""
     r = requests.post(f"{API_BASE}{path}", json=json, files=files, data=data,
                       headers=api_headers(), timeout=20)
     r.raise_for_status()
     return r.json()
 
-def api_get(path, params=None):
+def api_get(path: str, params: dict | None = None) -> dict:
     """GET from the backend API and return the parsed JSON response, raising on HTTP errors."""
     r = requests.get(f"{API_BASE}{path}", params=params, headers=api_headers(), timeout=20)
     r.raise_for_status()
