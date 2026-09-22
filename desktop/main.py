@@ -237,8 +237,14 @@ class ToggleButton(QtWidgets.QAbstractButton):
         self._anim.setEndValue(1.0 if checked else 0.0)
         self._anim.start()
         self.toggledAnimated.emit(checked)
-    def getOffset(self) -> float: return self._offset
-    def setOffset(self, v: float): self._offset = float(v); self.update()
+    def getOffset(self) -> float:
+        """Return the toggle knob's current animated offset (0.0-1.0)."""
+        return self._offset
+
+    def setOffset(self, v: float) -> None:
+        """Set the toggle knob's animated offset and trigger a repaint."""
+        self._offset = float(v)
+        self.update()
     offset = QtCore.pyqtProperty(float, fget=getOffset, fset=setOffset)
     def paintEvent(self, e):
         p = QtGui.QPainter(self); p.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
