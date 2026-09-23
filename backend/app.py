@@ -222,6 +222,16 @@ def seconds_to_hours(total_seconds: int) -> float:
     """
     return round(total_seconds / 3600, 2)
 
+def hours_minutes(total_seconds: int) -> tuple[int, int]:
+    """Split a duration in seconds into whole hours and remaining minutes.
+
+    Useful when a caller needs the two components separately rather
+    than a single pre-formatted string like format_duration_compact() returns.
+    """
+    h = total_seconds // 3600
+    m = (total_seconds % 3600) // 60
+    return h, m
+
 def admin_required(fn):
     """Route decorator that aborts with 403 unless the current user's role is admin.
 
