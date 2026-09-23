@@ -214,6 +214,14 @@ def format_duration_compact(total_seconds: int) -> str:
         return f"{h}h {m}m"
     return f"{h}h" if h else f"{m}m"
 
+def seconds_to_hours(total_seconds: int) -> float:
+    """Convert a duration in seconds to hours, rounded to two decimal places.
+
+    Handy for reporting/export views that show totals in hours rather
+    than the HH:MM:SS format used elsewhere.
+    """
+    return round(total_seconds / 3600, 2)
+
 def admin_required(fn):
     """Route decorator that aborts with 403 unless the current user's role is admin.
 
