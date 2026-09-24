@@ -232,6 +232,14 @@ def hours_minutes(total_seconds: int) -> tuple[int, int]:
     m = (total_seconds % 3600) // 60
     return h, m
 
+def parse_hms(duration: str) -> int:
+    """Parse an "HH:MM:SS" string back into a duration in seconds.
+
+    Inverse of format_duration(); handy when re-importing exported CSV data.
+    """
+    h, m, s = (int(part) for part in duration.split(":"))
+    return h * 3600 + m * 60 + s
+
 def admin_required(fn):
     """Route decorator that aborts with 403 unless the current user's role is admin.
 
