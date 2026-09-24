@@ -306,14 +306,16 @@ class LoginDialog(QtWidgets.QDialog):
         f.addRow("Email", self.email); f.addRow("Password", self.pw); f.addRow(row)
         self.btnLogin.clicked.connect(self.do_login); self.btnRegister.clicked.connect(self.do_register)
 
-    def do_register(self):
+    def do_register(self) -> None:
+        """Submit the register form fields to the backend and prompt to log in on success."""
         try:
             api_post("/auth/register", json={"email": self.email.text(), "password": self.pw.text(), "full_name": ""})
             QtWidgets.QMessageBox.information(self, "Success", "Registered. Now login.")
         except Exception as e:
             QtWidgets.QMessageBox.critical(self, "Register failed", str(e))
 
-    def do_login(self):
+    def do_login(self) -> None:
+        """Authenticate the login form fields and store the session token on success."""
         try:
             res = api_post("/auth/login", json={"email": self.email.text(), "password": self.pw.text()})
             state.token = res["access_token"]; state.user = res["user"]
