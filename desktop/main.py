@@ -104,6 +104,10 @@ def format_duration(seconds: int) -> str:
     mins, secs = divmod(rem, 60)
     return f"{hrs}:{mins:02d}:{secs:02d}"
 
+def format_duration_minutes(seconds: int) -> int:
+    """Return the whole number of minutes represented by a duration in seconds."""
+    return max(0, int(seconds)) // 60
+
 # ---------------- Activity listeners ----------------
 def on_key(_) -> None:
     """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
