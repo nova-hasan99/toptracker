@@ -232,6 +232,10 @@ def hours_minutes(total_seconds: int) -> tuple[int, int]:
     m = (total_seconds % 3600) // 60
     return h, m
 
+def format_duration_minutes(total_seconds: int) -> int:
+    """Return the whole number of minutes represented by a duration in seconds."""
+    return max(0, int(total_seconds)) // 60
+
 def parse_hms(duration: str) -> int:
     """Parse an "HH:MM:SS" string back into a duration in seconds.
 
