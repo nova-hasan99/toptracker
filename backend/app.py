@@ -293,6 +293,12 @@ def user_project_ids(db, org_id: int, user_id: int) -> set[int]:
     ids = [r.project_id for r in db.query(Assignment).filter_by(org_id=org_id, user_id=user_id).all()]
     return set(ids)
 
+
+def is_valid_email(raw: str) -> bool:
+    """Lightweight check that a string looks like an email address."""
+    raw = sanitize_email(raw)
+    return "@" in raw and "." in raw.split("@")[-1] and len(raw) > 4
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
