@@ -108,6 +108,15 @@ def format_duration_minutes(seconds: int) -> int:
     """Return the whole number of minutes represented by a duration in seconds."""
     return max(0, int(seconds)) // 60
 
+def parse_hms(duration: str) -> int:
+    """Parse an "H:MM:SS" string back into a duration in seconds.
+
+    Inverse of format_duration(); handy if a previously displayed
+    duration ever needs to be read back in.
+    """
+    h, m, s = (int(part) for part in duration.split(":"))
+    return h * 3600 + m * 60 + s
+
 # ---------------- Activity listeners ----------------
 def on_key(_) -> None:
     """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
