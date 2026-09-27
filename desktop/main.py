@@ -229,7 +229,8 @@ class PreviewPopup(QtWidgets.QWidget):
         if sound: sound.play("ss_reject")
         self.close()
 
-    def sizeHint(self):
+    def sizeHint(self) -> QtCore.QSize:
+        """Preferred size for the fixed-position screenshot preview dialog."""
         return QtCore.QSize(300, 240)
 
 # ---------------- iOS-style Toggle ----------------
