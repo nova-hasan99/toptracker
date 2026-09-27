@@ -244,6 +244,10 @@ def parse_hms(duration: str) -> int:
     h, m, s = (int(part) for part in duration.split(":"))
     return h * 3600 + m * 60 + s
 
+def is_business_hours(dt: datetime) -> bool:
+    """Return True if a UTC datetime falls within a typical Mon-Fri, 9-5 workday."""
+    return dt.weekday() < 5 and 9 <= dt.hour < 17
+
 def admin_required(fn):
     """Route decorator that aborts with 403 unless the current user's role is admin.
 
