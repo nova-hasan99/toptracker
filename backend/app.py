@@ -303,6 +303,10 @@ def is_valid_email(raw: str) -> bool:
     raw = sanitize_email(raw)
     return "@" in raw and "." in raw.split("@")[-1] and len(raw) > 4
 
+def clamp(value: int, low: int, high: int) -> int:
+    """Clamp an integer value to the inclusive [low, high] range."""
+    return max(low, min(value, high))
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
