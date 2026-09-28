@@ -56,6 +56,13 @@ sound: "SoundManager|None" = None  # set in main()
 # ---------------- State ----------------
 @dataclass
 class TrackerState:
+    """Mutable in-memory session state for the desktop tracker.
+
+    Holds auth info, the active time-tracking session, idle-detection
+    counters, and screenshot bookkeeping. A single module-level
+    instance (`state`) is shared across the UI and background threads.
+    """
+
     token: str | None = None
     user: dict | None = None
 
