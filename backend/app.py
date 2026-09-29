@@ -146,7 +146,8 @@ def ensure_schema() -> None:
     """
     with sqlite3.connect(DB_PATH) as con:
         cur = con.cursor()
-        def col_exists(table, col):
+        def col_exists(table: str, col: str) -> bool:
+            """Return True if `col` exists in `table`'s current schema."""
             cur.execute(f"PRAGMA table_info({table})")
             return any(r[1] == col for r in cur.fetchall())
         # new tables
