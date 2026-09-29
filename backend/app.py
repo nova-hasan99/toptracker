@@ -249,6 +249,13 @@ def is_business_hours(dt: datetime) -> bool:
     """Return True if a UTC datetime falls within a typical Mon-Fri, 9-5 workday."""
     return dt.weekday() < 5 and 9 <= dt.hour < 17
 
+def is_weekend(dt: datetime) -> bool:
+    """Return True if a UTC datetime falls on Saturday or Sunday.
+
+    Complements is_business_hours() for reports that split weekday vs weekend activity.
+    """
+    return dt.weekday() >= 5
+
 def admin_required(fn):
     """Route decorator that aborts with 403 unless the current user's role is admin.
 
