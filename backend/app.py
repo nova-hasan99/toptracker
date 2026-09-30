@@ -315,6 +315,15 @@ def clamp(value: int, low: int, high: int) -> int:
     """Clamp an integer value to the inclusive [low, high] range."""
     return max(low, min(value, high))
 
+
+def safe_ratio(numerator: float, denominator: float) -> float:
+    """Return numerator / denominator, or 0.0 if denominator is zero.
+
+    Used when computing percentages (e.g. active vs idle time) where the
+    denominator may legitimately be zero for a brand-new session.
+    """
+    return numerator / denominator if denominator else 0.0
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
