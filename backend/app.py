@@ -635,7 +635,12 @@ def export_csv():
 
 # ---- serve uploads ----
 @app.get("/uploads/<path:filename>")
-def serve_upload(filename):
+def serve_upload(filename: str):
+    """Serve a previously uploaded file (e.g. a heartbeat screenshot) by name.
+
+    Files are returned inline (not as attachments) so screenshots can be
+    embedded directly in the dashboard and activity-log views.
+    """
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=False)
 
 # ---------------- API (Desktop) ----------------
