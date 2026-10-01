@@ -689,6 +689,9 @@ def api_login():
 @app.get("/tasks")
 @jwt_required()
 def api_tasks_list():
+    """List tasks visible to the caller: all org tasks for admins, or only
+    tasks under projects the caller is assigned to for regular members.
+    """
     uid, org_id, role = current_context()
     db = SessionLocal()
     try:
