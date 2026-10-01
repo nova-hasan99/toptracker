@@ -124,6 +124,13 @@ def parse_hms(duration: str) -> int:
     h, m, s = (int(part) for part in duration.split(":"))
     return h * 3600 + m * 60 + s
 
+def format_duration_compact(seconds: int) -> str:
+    """Format a duration in seconds as a compact "1h05m" style string, omitting the hour part when zero."""
+    seconds = max(0, int(seconds))
+    hrs, rem = divmod(seconds, 3600)
+    mins = rem // 60
+    return f"{hrs}h{mins:02d}m" if hrs else f"{mins}m"
+
 # ---------------- Activity listeners ----------------
 def on_key(_) -> None:
     """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
