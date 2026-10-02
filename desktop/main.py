@@ -131,6 +131,10 @@ def format_duration_compact(seconds: int) -> str:
     mins = rem // 60
     return f"{hrs}h{mins:02d}m" if hrs else f"{mins}m"
 
+def format_percentage(value: float, decimals: int = 0) -> str:
+    """Format a 0-100 ratio as a percentage string (e.g. "42%"), for parity with the backend's as_percentage()."""
+    return f"{value:.{decimals}f}%"
+
 # ---------------- Activity listeners ----------------
 def on_key(_) -> None:
     """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
