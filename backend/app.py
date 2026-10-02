@@ -324,6 +324,14 @@ def safe_ratio(numerator: float, denominator: float) -> float:
     """
     return numerator / denominator if denominator else 0.0
 
+def as_percentage(numerator: float, denominator: float, decimals: int = 1) -> float:
+    """Return numerator/denominator expressed as a rounded percentage.
+
+    Thin wrapper around safe_ratio() for UI-facing values (e.g. active vs
+    idle time) so callers don't repeat the "* 100, round()" boilerplate.
+    """
+    return round(safe_ratio(numerator, denominator) * 100, decimals)
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
