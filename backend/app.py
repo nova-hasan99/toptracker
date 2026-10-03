@@ -245,6 +245,14 @@ def parse_hms(duration: str) -> int:
     h, m, s = (int(part) for part in duration.split(":"))
     return h * 3600 + m * 60 + s
 
+def format_file_size(num_bytes: int) -> str:
+    """Convert a byte count into a short human-readable string like "4.2 MB"."""
+    size = float(num_bytes)
+    for unit in ("B", "KB", "MB", "GB"):
+        if size < 1024 or unit == "GB":
+            return f"{int(size)} {unit}" if unit == "B" else f"{size:.1f} {unit}"
+        size /= 1024
+
 def is_business_hours(dt: datetime) -> bool:
     """Return True if a UTC datetime falls within a typical Mon-Fri, 9-5 workday."""
     return dt.weekday() < 5 and 9 <= dt.hour < 17
