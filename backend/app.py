@@ -387,8 +387,14 @@ def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit
         })
     return out
 
-def sum_session_seconds(db, org_id, user_id, start, end, allow_projects: set) -> int:
-    """Sum the clamped duration (in seconds) of all matching time sessions."""
+def sum_session_seconds(
+    db, org_id: int, user_id: int, start: datetime, end: datetime, allow_projects: set
+) -> int:
+    """Sum the clamped duration (in seconds) of all matching time sessions.
+
+    Each session span is clamped to [start, end] before being summed, so
+    sessions that only partially overlap the window are counted correctly.
+    """
     total = 0
     q = db.query(TimeSession, Task).join(Task, TimeSession.task_id==Task.id)\
         .filter(TimeSession.org_id==org_id, TimeSession.user_id==user_id)
