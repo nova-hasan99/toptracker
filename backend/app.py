@@ -319,6 +319,15 @@ def is_valid_email(raw: str) -> bool:
     raw = sanitize_email(raw)
     return "@" in raw and "." in raw.split("@")[-1] and len(raw) > 4
 
+def mask_email(raw: str) -> str:
+    """Partially mask an email for display/logging, e.g. "jo***@example.com".
+
+    Keeps the first two characters of the local part and the full
+    domain, replacing the rest of the local part with asterisks.
+    """
+    local, _, domain = sanitize_email(raw).partition("@")
+    return f"{local[:2]}***@{domain}" if domain else raw
+
 def clamp(value: int, low: int, high: int) -> int:
     """Clamp an integer value to the inclusive [low, high] range."""
     return max(low, min(value, high))
