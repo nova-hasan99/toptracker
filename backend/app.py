@@ -349,6 +349,12 @@ def as_percentage(numerator: float, denominator: float, decimals: int = 1) -> fl
     """
     return round(safe_ratio(numerator, denominator) * 100, decimals)
 
+def truncate_text(value: str, max_length: int = 80) -> str:
+    """Shorten value to max_length characters, appending '...' if cut."""
+    if len(value) <= max_length:
+        return value
+    return value[: max_length - 3].rstrip() + "..."
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
