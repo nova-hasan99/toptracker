@@ -142,6 +142,10 @@ def format_percentage(value: float, decimals: int = 0) -> str:
     """Format a 0-100 ratio as a percentage string (e.g. "42%"), for parity with the backend's as_percentage()."""
     return f"{value:.{decimals}f}%"
 
+def clamp(value: float, lo: float, hi: float) -> float:
+    """Clamp a numeric value to the inclusive [lo, hi] range."""
+    return max(lo, min(hi, value))
+
 # ---------------- Activity listeners ----------------
 def on_key(_) -> None:
     """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
