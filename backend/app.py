@@ -355,6 +355,16 @@ def truncate_text(value: str, max_length: int = 80) -> str:
         return value
     return value[: max_length - 3].rstrip() + "..."
 
+def safe_int(value, default: int = 0) -> int:
+    """Best-effort int conversion, falling back to `default` on failure.
+
+    Handy for query-string/form values that may be missing or non-numeric.
+    """
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
