@@ -24,6 +24,13 @@ def format_duration(seconds: int) -> str:
     minutes, secs = divmod(rem, 60)
     return f"{hours:02d}:{minutes:02d}:{secs:02d}"
 
+
+def format_duration_short(seconds: int) -> str:
+    """Format a duration in whole seconds as a compact '1h 23m' style string."""
+    hours, rem = divmod(max(0, int(seconds)), 3600)
+    minutes = rem // 60
+    return f"{hours}h {minutes:02d}m" if hours else f"{minutes}m"
+
 # ---------------- Sound Manager ----------------
 class SoundManager(QtCore.QObject):
     """Manages cached QSoundEffect instances for UI event sounds."""
