@@ -31,6 +31,11 @@ def format_duration_short(seconds: int) -> str:
     minutes = rem // 60
     return f"{hours}h {minutes:02d}m" if hours else f"{minutes}m"
 
+def seconds_to_minutes(seconds: int) -> int:
+    """Convert a duration in whole seconds to whole minutes, rounding down."""
+    return max(0, int(seconds)) // 60
+
+
 # ---------------- Sound Manager ----------------
 class SoundManager(QtCore.QObject):
     """Manages cached QSoundEffect instances for UI event sounds."""
