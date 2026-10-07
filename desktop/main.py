@@ -418,7 +418,8 @@ class MainWindow(QtWidgets.QWidget):
         self.load_tasks()
 
     # ---- slots ----
-    def on_toggle_screens(self):
+    def on_toggle_screens(self) -> None:
+        """Slot: sync the screenshot-capture flag with the checkbox state."""
         state.capture_screens = self.chkScreens.isChecked()
 
     def on_toggle_session(self, checked: bool):
