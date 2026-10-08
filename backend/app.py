@@ -365,6 +365,17 @@ def safe_int(value, default: int = 0) -> int:
     except (TypeError, ValueError):
         return default
 
+def safe_float(value, default: float = 0.0) -> float:
+    """Best-effort float conversion, falling back to `default` on failure.
+
+    Mirrors safe_int() for form/query values that should be numeric but
+    may arrive missing, empty, or malformed.
+    """
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
