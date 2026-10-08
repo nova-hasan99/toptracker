@@ -45,6 +45,10 @@ def now_utc() -> datetime:
     """Return the current time as a timezone-aware UTC datetime."""
     return datetime.now(timezone.utc)
 
+def seconds_between(start: datetime, end: datetime) -> float:
+    """Return the number of whole seconds elapsed between two datetimes."""
+    return max(0.0, (end - start).total_seconds())
+
 # ---------------- Models ----------------
 class Organization(Base):
     """Represents a workspace organization that owns projects and members."""
