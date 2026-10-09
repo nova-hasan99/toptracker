@@ -36,6 +36,11 @@ def seconds_to_minutes(seconds: int) -> int:
     return max(0, int(seconds)) // 60
 
 
+def is_idle_timeout(idle_seconds: int, threshold_seconds: int) -> bool:
+    """Return True once elapsed idle time has reached the configured threshold."""
+    return max(0, int(idle_seconds)) >= max(0, int(threshold_seconds))
+
+
 # ---------------- Sound Manager ----------------
 class SoundManager(QtCore.QObject):
     """Manages cached QSoundEffect instances for UI event sounds."""
