@@ -380,6 +380,15 @@ def safe_float(value, default: float = 0.0) -> float:
     except (TypeError, ValueError):
         return default
 
+def is_blank(value: str | None) -> bool:
+    """True if value is None, empty, or only whitespace.
+
+    Handy for validating optional form/query text fields before they're
+    saved (e.g. project names, task titles) without scattering `.strip()`
+    checks across route handlers.
+    """
+    return value is None or not value.strip()
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
