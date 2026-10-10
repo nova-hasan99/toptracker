@@ -41,6 +41,13 @@ def is_idle_timeout(idle_seconds: int, threshold_seconds: int) -> bool:
     return max(0, int(idle_seconds)) >= max(0, int(threshold_seconds))
 
 
+def percent_complete(elapsed_seconds: int, total_seconds: int) -> float:
+    """Return elapsed_seconds as a percentage (0-100) of total_seconds, clamped."""
+    if total_seconds <= 0:
+        return 0.0
+    return min(100.0, max(0.0, (elapsed_seconds / total_seconds) * 100))
+
+
 # ---------------- Sound Manager ----------------
 class SoundManager(QtCore.QObject):
     """Manages cached QSoundEffect instances for UI event sounds."""
