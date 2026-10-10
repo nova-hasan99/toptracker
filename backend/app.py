@@ -389,6 +389,12 @@ def is_blank(value: str | None) -> bool:
     """
     return value is None or not value.strip()
 
+def is_valid_hex_color(value: str) -> bool:
+    """Return True if value looks like a 6-digit hex color (e.g. '#1a2b3c')."""
+    if not value.startswith("#") or len(value) != 7:
+        return False
+    return all(c in "0123456789abcdefABCDEF" for c in value[1:])
+
 # -------- Activity builders --------
 def build_activities(db, org_id, user_id, start, end, allow_projects: set, limit=1000):
     """
