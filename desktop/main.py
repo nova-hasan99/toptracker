@@ -608,3 +608,9 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+def seconds_to_hours(seconds: int) -> float:
+    """Convert a duration in whole seconds to fractional hours, rounded to 2 decimals."""
+    return round(max(0, int(seconds)) / 3600, 2)
+
