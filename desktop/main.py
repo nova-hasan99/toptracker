@@ -170,6 +170,15 @@ def clamp(value: float, lo: float, hi: float) -> float:
     """Clamp a numeric value to the inclusive [lo, hi] range."""
     return max(lo, min(hi, value))
 
+def minutes_to_hms(total_minutes: float) -> str:
+    """Format a minute count as "Hh MMm" text for the tray/status labels.
+
+    Thin wrapper around format_duration_short() so callers that track
+    progress in minutes (rather than raw seconds) don't need to convert
+    by hand before displaying it.
+    """
+    return format_duration_short(int(round(total_minutes * 60)))
+
 # ---------------- Activity listeners ----------------
 def on_key(_) -> None:
     """Pynput keyboard listener callback: bump the key counter and refresh activity timestamp."""
