@@ -191,6 +191,14 @@ def to_bool(raw: str) -> bool:
     """Parse a truthy string ('true'/'1'/'yes', case-insensitive) into a bool."""
     return str(raw).strip().lower() in ("true", "1", "yes")
 
+def mask_email(addr: str) -> str:
+    """Obscure the local part of an email for display, keeping the domain visible."""
+    if "@" not in addr:
+        return addr
+    local, domain = addr.split("@", 1)
+    masked = (local[0] + "***") if local else "***"
+    return f"{masked}@{domain}"
+
 def current_context() -> tuple[int, int, str]:
     """Extract (user_id, org_id, role) from the current JWT."""
     j = get_jwt()
@@ -872,3 +880,6 @@ def api_heartbeats():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
+    
+
+#  this is the top tracker
