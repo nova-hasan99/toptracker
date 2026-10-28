@@ -241,6 +241,10 @@ def format_duration_minutes(total_seconds: int) -> int:
     """Return the whole number of minutes represented by a duration in seconds."""
     return max(0, int(total_seconds)) // 60
 
+def seconds_to_minutes(total_seconds: int) -> float:
+    """Convert a duration in seconds to minutes, rounded to two decimal places."""
+    return round(max(0, int(total_seconds)) / 60, 2)
+
 def parse_hms(duration: str) -> int:
     """Parse an "HH:MM:SS" string back into a duration in seconds.
 
