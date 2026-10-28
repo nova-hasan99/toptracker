@@ -191,14 +191,6 @@ def to_bool(raw: str) -> bool:
     """Parse a truthy string ('true'/'1'/'yes', case-insensitive) into a bool."""
     return str(raw).strip().lower() in ("true", "1", "yes")
 
-def mask_email(addr: str) -> str:
-    """Obscure the local part of an email for display, keeping the domain visible."""
-    if "@" not in addr:
-        return addr
-    local, domain = addr.split("@", 1)
-    masked = (local[0] + "***") if local else "***"
-    return f"{masked}@{domain}"
-
 def current_context() -> tuple[int, int, str]:
     """Extract (user_id, org_id, role) from the current JWT."""
     j = get_jwt()
