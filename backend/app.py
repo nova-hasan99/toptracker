@@ -227,6 +227,10 @@ def seconds_to_hours(total_seconds: int) -> float:
     """
     return round(total_seconds / 3600, 2)
 
+def hours_to_seconds(hours: float) -> int:
+    """Convert a duration in hours to whole seconds, inverse of seconds_to_hours()."""
+    return int(round(max(0.0, hours) * 3600))
+
 def hours_minutes(total_seconds: int) -> tuple[int, int]:
     """Split a duration in seconds into whole hours and remaining minutes.
 
