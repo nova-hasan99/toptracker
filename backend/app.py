@@ -514,6 +514,10 @@ def web_login_required(view):
 @app.route("/")
 @web_login_required
 def dashboard():
+    """Render the main dashboard: the caller's own activity snapshot,
+    plus (for admins) a per-member team overview and project list for
+    the selected date range.
+    """
     db = SessionLocal()
     try:
         uid = session["uid"]; org_id = session["org_id"]; role = session["role"]
