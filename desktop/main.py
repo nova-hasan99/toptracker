@@ -624,3 +624,8 @@ def clamp_percent(value: float) -> float:
 def hours_to_seconds(hours: float) -> int:
     """Convert a duration in (possibly fractional) hours to whole seconds."""
     return max(0, int(round(hours * 3600)))
+
+
+def format_percent_label(value: float) -> str:
+    """Format a 0-100 percentage value as a rounded display string like "42%"."""
+    return f"{round(max(0.0, min(100.0, value)))}%"
