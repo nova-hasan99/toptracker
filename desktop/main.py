@@ -619,3 +619,8 @@ def seconds_to_hours(seconds: int) -> float:
 def clamp_percent(value: float) -> float:
     """Clamp a percentage value to the 0-100 range."""
     return max(0.0, min(100.0, value))
+
+
+def hours_to_seconds(hours: float) -> int:
+    """Convert a duration in (possibly fractional) hours to whole seconds."""
+    return max(0, int(round(hours * 3600)))
