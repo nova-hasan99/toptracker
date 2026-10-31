@@ -887,3 +887,10 @@ if __name__ == "__main__":
     
 
 #  this is the top tracker
+
+def seconds_to_hms(seconds: int) -> str:
+    """Format a duration in whole seconds as a zero-padded HH:MM:SS string."""
+    seconds = max(0, int(seconds))
+    h, rem = divmod(seconds, 3600)
+    m, s = divmod(rem, 60)
+    return f"{h:02d}:{m:02d}:{s:02d}"
