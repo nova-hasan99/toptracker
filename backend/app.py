@@ -249,6 +249,14 @@ def seconds_to_minutes(total_seconds: int) -> float:
     """Convert a duration in seconds to minutes, rounded to two decimal places."""
     return round(max(0, int(total_seconds)) / 60, 2)
 
+def seconds_to_days(total_seconds: int) -> float:
+    """Convert a duration in seconds to days, rounded to two decimal places.
+
+    Mirrors seconds_to_hours()/seconds_to_minutes() for reports that
+    summarize very long tracked durations in whole days.
+    """
+    return round(max(0, int(total_seconds)) / 86400, 2)
+
 def parse_hms(duration: str) -> int:
     """Parse an "HH:MM:SS" string back into a duration in seconds.
 
