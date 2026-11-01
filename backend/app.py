@@ -249,6 +249,14 @@ def seconds_to_minutes(total_seconds: int) -> float:
     """Convert a duration in seconds to minutes, rounded to two decimal places."""
     return round(max(0, int(total_seconds)) / 60, 2)
 
+def minutes_to_seconds(minutes: float) -> int:
+    """Convert a duration in minutes to whole seconds.
+
+    Inverse of seconds_to_minutes(), for inputs (e.g. form fields) that
+    are entered in minutes but stored/compared as seconds.
+    """
+    return max(0, round(minutes * 60))
+
 def seconds_to_days(total_seconds: int) -> float:
     """Convert a duration in seconds to days, rounded to two decimal places.
 
