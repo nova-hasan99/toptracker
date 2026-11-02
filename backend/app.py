@@ -49,6 +49,10 @@ def seconds_between(start: datetime, end: datetime) -> float:
     """Return the number of whole seconds elapsed between two datetimes."""
     return max(0.0, (end - start).total_seconds())
 
+def is_valid_duration(seconds: float) -> bool:
+    """Return True if the given duration in seconds is a finite, non-negative number."""
+    return isinstance(seconds, (int, float)) and seconds >= 0
+
 # ---------------- Models ----------------
 class Organization(Base):
     """Represents a workspace organization that owns projects and members."""
