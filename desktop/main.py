@@ -629,3 +629,7 @@ def hours_to_seconds(hours: float) -> int:
 def format_percent_label(value: float) -> str:
     """Format a 0-100 percentage value as a rounded display string like "42%"."""
     return f"{round(max(0.0, min(100.0, value)))}%"
+
+
+# this is the top tracker
+# and use for self-hosted tracking
