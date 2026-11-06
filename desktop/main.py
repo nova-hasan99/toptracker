@@ -18,6 +18,9 @@ API_BASE = "http://127.0.0.1:8000"  # change if needed
 SOUNDS_DIR = Path(__file__).parent / "sounds"
 
 
+# we shuild use the same format as the backend for consistency
+# and for easy parsing if needed
+
 def format_duration(seconds: int) -> str:
     """Format a duration in whole seconds as HH:MM:SS for display."""
     hours, rem = divmod(max(0, int(seconds)), 3600)
