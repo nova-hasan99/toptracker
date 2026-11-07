@@ -636,3 +636,12 @@ def format_percent_label(value: float) -> str:
 
 # this is the top tracker
 # and use for self-hosted tracking
+
+def days_to_seconds(days: float) -> int:
+    """Convert a (possibly fractional) duration in days to whole seconds.
+
+    Inverse of the backend's seconds_to_days(), for code that tracks
+    long-running totals in days but needs seconds for storage/display.
+    """
+    return max(0, int(round(days * 86400)))
+
