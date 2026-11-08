@@ -645,3 +645,12 @@ def days_to_seconds(days: float) -> int:
     """
     return max(0, int(round(days * 86400)))
 
+
+
+def seconds_to_days(total_seconds: int) -> float:
+    """Convert a duration in seconds to days, rounded to two decimal places.
+
+    Inverse of days_to_seconds(); mirrors the backend's seconds_to_days()
+    for UI code that reports very long tracked durations in whole days.
+    """
+    return round(max(0, int(total_seconds)) / 86400, 2)
