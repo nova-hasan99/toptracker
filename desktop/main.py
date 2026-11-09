@@ -39,6 +39,11 @@ def seconds_to_minutes(seconds: int) -> int:
     return max(0, int(seconds)) // 60
 
 
+def seconds_to_hours(seconds: int) -> float:
+    """Convert a duration in whole seconds to hours, rounded to 2 decimals."""
+    return round(max(0, int(seconds)) / 3600, 2)
+
+
 def is_idle_timeout(idle_seconds: int, threshold_seconds: int) -> bool:
     """Return True once elapsed idle time has reached the configured threshold."""
     return max(0, int(idle_seconds)) >= max(0, int(threshold_seconds))
