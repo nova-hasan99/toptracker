@@ -917,3 +917,12 @@ def seconds_to_hms(seconds: int) -> str:
     h, rem = divmod(seconds, 3600)
     m, s = divmod(rem, 60)
     return f"{h:02d}:{m:02d}:{s:02d}"
+
+
+def minutes_to_hours(minutes: float) -> float:
+    """Convert a duration in minutes to hours, rounded to two decimal places.
+
+    Complement to hours_to_seconds()/seconds_to_minutes(); useful for UI
+    code that stores durations in minutes but reports them in hours.
+    """
+    return round(max(0.0, float(minutes)) / 60, 2)
