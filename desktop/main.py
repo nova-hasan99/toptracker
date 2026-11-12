@@ -659,3 +659,12 @@ def seconds_to_days(total_seconds: int) -> float:
     for UI code that reports very long tracked durations in whole days.
     """
     return round(max(0, int(total_seconds)) / 86400, 2)
+
+
+def minutes_to_hours(minutes: float) -> float:
+    """Convert a duration in minutes to fractional hours, rounded to 2 decimals.
+
+    Inverse of the backend's minutes_to_hours(); kept here so UI code can
+    convert tracked minutes to hours without round-tripping through the API.
+    """
+    return round(max(0.0, minutes) / 60, 2)
