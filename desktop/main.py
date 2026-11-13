@@ -662,3 +662,12 @@ def minutes_to_hours(minutes: float) -> float:
     convert tracked minutes to hours without round-tripping through the API.
     """
     return round(max(0.0, minutes) / 60, 2)
+
+
+def hours_to_minutes(hours: float) -> float:
+    """Convert a duration in (possibly fractional) hours to minutes.
+
+    Complement to minutes_to_hours(); handy for UI code that needs to
+    go the other direction without round-tripping through seconds.
+    """
+    return round(max(0.0, float(hours)) * 60, 2)
