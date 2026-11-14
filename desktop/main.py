@@ -671,3 +671,12 @@ def hours_to_minutes(hours: float) -> float:
     go the other direction without round-tripping through seconds.
     """
     return round(max(0.0, float(hours)) * 60, 2)
+
+
+def seconds_to_weeks(total_seconds: int) -> float:
+    """Convert a duration in seconds to weeks, rounded to two decimal places.
+
+    Companion to seconds_to_days(); for UI code reporting very long
+    tracked totals in whole weeks instead of days.
+    """
+    return round(max(0, int(total_seconds)) / 604800, 2)
