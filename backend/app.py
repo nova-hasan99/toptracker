@@ -280,6 +280,10 @@ def days_to_hours(days: float) -> float:
     """
     return round(max(0.0, float(days)) * 24, 2)
 
+def days_to_seconds(days: float) -> int:
+    """Convert a duration in days to whole seconds, inverse of seconds_to_days()."""
+    return int(round(max(0.0, float(days)) * 86400))
+
 def parse_hms(duration: str) -> int:
     """Parse an "HH:MM:SS" string back into a duration in seconds.
 
