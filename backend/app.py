@@ -938,3 +938,12 @@ def minutes_to_hours(minutes: float) -> float:
     code that stores durations in minutes but reports them in hours.
     """
     return round(max(0.0, float(minutes)) / 60, 2)
+
+
+def seconds_to_weeks(total_seconds: int) -> float:
+    """Convert a duration in seconds to weeks, rounded to two decimal places.
+
+    Complements seconds_to_days()/seconds_to_hours() for reports that
+    summarize very long tracked durations in whole weeks.
+    """
+    return round(max(0, int(total_seconds)) / 604800, 2)
