@@ -689,3 +689,12 @@ def weeks_to_seconds(weeks: float) -> int:
     weeks and store/compare it as seconds like the rest of the app.
     """
     return max(0, int(round(weeks * 604800)))
+
+
+def minutes_to_seconds(minutes: float) -> int:
+    """Convert a (possibly fractional) duration in minutes to whole seconds.
+
+    Inverse of seconds_to_minutes(); lets UI code accept a duration in
+    minutes and store/compare it as seconds like the rest of the app.
+    """
+    return max(0, int(round(minutes * 60)))
