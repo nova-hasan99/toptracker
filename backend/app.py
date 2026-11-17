@@ -955,3 +955,12 @@ def seconds_to_weeks(total_seconds: int) -> float:
     summarize very long tracked durations in whole weeks.
     """
     return round(max(0, int(total_seconds)) / 604800, 2)
+
+
+def weeks_to_seconds(weeks: float) -> int:
+    """Convert a (possibly fractional) duration in weeks to whole seconds.
+
+    Inverse of seconds_to_weeks(); lets API/report code accept a duration
+    in weeks and store/compare it as seconds like the rest of the app.
+    """
+    return max(0, int(round(weeks * 604800)))
