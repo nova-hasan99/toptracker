@@ -964,3 +964,12 @@ def weeks_to_seconds(weeks: float) -> int:
     in weeks and store/compare it as seconds like the rest of the app.
     """
     return max(0, int(round(weeks * 604800)))
+
+
+def days_to_weeks(days: float) -> float:
+    """Convert a duration in days to weeks, rounded to two decimal places.
+
+    Complements seconds_to_weeks()/weeks_to_seconds() for report code that
+    already has a duration expressed in whole or fractional days.
+    """
+    return round(max(0.0, float(days)) / 7, 2)
