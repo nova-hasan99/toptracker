@@ -56,6 +56,13 @@ def percent_complete(elapsed_seconds: int, total_seconds: int) -> float:
     return min(100.0, max(0.0, (elapsed_seconds / total_seconds) * 100))
 
 
+def seconds_to_hms(seconds: int) -> tuple[int, int, int]:
+    """Convert a duration in whole seconds to an (hours, minutes, seconds) tuple."""
+    hours, rem = divmod(max(0, int(seconds)), 3600)
+    minutes, secs = divmod(rem, 60)
+    return hours, minutes, secs
+
+
 # ---------------- Sound Manager ----------------
 class SoundManager(QtCore.QObject):
     """Manages cached QSoundEffect instances for UI event sounds."""
