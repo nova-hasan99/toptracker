@@ -714,3 +714,13 @@ def minutes_to_days(minutes: float) -> float:
     tracked minutes straight to days without round-tripping through seconds.
     """
     return round(max(0.0, minutes) / 1440, 2)
+
+
+def days_to_hours(days: float) -> float:
+    """Convert a (possibly fractional) duration in days to hours.
+
+    Companion to hours_to_minutes()/minutes_to_hours(); lets UI code
+    report a tracked day-count directly in hours without round-tripping
+    through seconds.
+    """
+    return round(max(0.0, float(days)) * 24, 2)
