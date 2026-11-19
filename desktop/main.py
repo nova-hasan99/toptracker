@@ -705,3 +705,12 @@ def minutes_to_seconds(minutes: float) -> int:
     minutes and store/compare it as seconds like the rest of the app.
     """
     return max(0, int(round(minutes * 60)))
+
+
+def minutes_to_days(minutes: float) -> float:
+    """Convert a duration in minutes to fractional days, rounded to two decimals.
+
+    Companion to days_to_seconds()/seconds_to_days(); lets UI code convert
+    tracked minutes straight to days without round-tripping through seconds.
+    """
+    return round(max(0.0, minutes) / 1440, 2)
