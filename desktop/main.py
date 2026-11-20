@@ -724,3 +724,12 @@ def days_to_hours(days: float) -> float:
     through seconds.
     """
     return round(max(0.0, float(days)) * 24, 2)
+
+
+def hours_to_days(hours: float) -> float:
+    """Convert a (possibly fractional) duration in hours to fractional days.
+
+    Companion to days_to_hours()/minutes_to_days(); completes the
+    hours<->days conversion pair used by the duration-formatting helpers.
+    """
+    return round(max(0.0, float(hours)) / 24, 2)
