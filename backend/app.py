@@ -973,3 +973,12 @@ def days_to_weeks(days: float) -> float:
     already has a duration expressed in whole or fractional days.
     """
     return round(max(0.0, float(days)) / 7, 2)
+
+
+def hours_to_minutes(hours: float) -> int:
+    """Convert a (possibly fractional) duration in hours to whole minutes.
+
+    Complements minutes_to_hours() so report code can convert either
+    direction between the two most commonly displayed duration units.
+    """
+    return max(0, int(round(hours * 60)))
