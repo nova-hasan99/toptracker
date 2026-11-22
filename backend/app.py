@@ -388,6 +388,15 @@ def clamp(value: int, low: int, high: int) -> int:
     return max(low, min(value, high))
 
 
+def clamp_float(value: float, low: float, high: float) -> float:
+    """Clamp a float value to the inclusive [low, high] range.
+
+    Float counterpart to clamp(), for ratios/percentages that shouldn't
+    use integer rounding.
+    """
+    return max(low, min(value, high))
+
+
 def safe_ratio(numerator: float, denominator: float) -> float:
     """Return numerator / denominator, or 0.0 if denominator is zero.
 
