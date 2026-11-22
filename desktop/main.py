@@ -68,6 +68,11 @@ def seconds_to_days(seconds: int) -> float:
     return round(max(0, int(seconds)) / 86400, 2)
 
 
+def seconds_to_weeks(seconds: int) -> float:
+    """Convert a duration in whole seconds to weeks, rounded to 2 decimals."""
+    return round(max(0, int(seconds)) / 604800, 2)
+
+
 # ---------------- Sound Manager ----------------
 class SoundManager(QtCore.QObject):
     """Manages cached QSoundEffect instances for UI event sounds."""
