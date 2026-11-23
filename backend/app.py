@@ -1000,3 +1000,13 @@ def hours_to_days(hours: float) -> float:
     needs to move between day- and hour-based duration units.
     """
     return round(max(0.0, float(hours)) / 24, 2)
+
+
+def days_to_minutes(days: float) -> int:
+    """Convert a (possibly fractional) duration in days to whole minutes.
+
+    Complements minutes_to_hours()/hours_to_minutes() so report code can
+    move from a day-count straight to minutes without round-tripping
+    through seconds.
+    """
+    return max(0, int(round(max(0.0, float(days)) * 1440)))
