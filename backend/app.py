@@ -991,3 +991,12 @@ def hours_to_minutes(hours: float) -> int:
     direction between the two most commonly displayed duration units.
     """
     return max(0, int(round(hours * 60)))
+
+
+def hours_to_days(hours: float) -> float:
+    """Convert a duration in hours to days, rounded to two decimal places.
+
+    Inverse of days_to_hours(); completes the pair for report code that
+    needs to move between day- and hour-based duration units.
+    """
+    return round(max(0.0, float(hours)) / 24, 2)
