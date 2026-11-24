@@ -743,3 +743,12 @@ def hours_to_days(hours: float) -> float:
     hours<->days conversion pair used by the duration-formatting helpers.
     """
     return round(max(0.0, float(hours)) / 24, 2)
+
+
+def weeks_to_days(weeks: float) -> float:
+    """Convert a (possibly fractional) duration in weeks to fractional days.
+
+    Companion to days_to_hours()/hours_to_days(); completes the
+    weeks<->days conversion pair used by the duration-formatting helpers.
+    """
+    return round(max(0.0, float(weeks)) * 7, 2)
