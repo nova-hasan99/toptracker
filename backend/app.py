@@ -1010,3 +1010,13 @@ def days_to_minutes(days: float) -> int:
     through seconds.
     """
     return max(0, int(round(max(0.0, float(days)) * 1440)))
+
+
+def weeks_to_hours(weeks: float) -> float:
+    """Convert a (possibly fractional) duration in weeks to hours.
+
+    Complements weeks_to_seconds()/seconds_to_weeks() so report code can
+    move from a week-count straight to hours without round-tripping
+    through seconds.
+    """
+    return round(max(0.0, float(weeks)) * 168, 2)
