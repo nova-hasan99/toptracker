@@ -1030,3 +1030,12 @@ def minutes_to_weeks(minutes: float) -> float:
     through seconds.
     """
     return round(max(0.0, float(minutes)) / 10080, 2)
+
+
+def weeks_to_days(weeks: float) -> float:
+    """Convert a (possibly fractional) duration in weeks to days.
+
+    Inverse of days_to_weeks(); completes the weeks<->days conversion
+    pair used by the report duration-formatting helpers.
+    """
+    return round(max(0.0, float(weeks)) * 7, 2)
