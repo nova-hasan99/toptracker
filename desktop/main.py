@@ -752,3 +752,13 @@ def weeks_to_days(weeks: float) -> float:
     weeks<->days conversion pair used by the duration-formatting helpers.
     """
     return round(max(0.0, float(weeks)) * 7, 2)
+
+
+def weeks_to_minutes(weeks: float) -> float:
+    """Convert a (possibly fractional) duration in weeks to minutes.
+
+    Companion to weeks_to_days()/weeks_to_seconds(); lets UI code report
+    a tracked week-count directly in minutes without round-tripping
+    through seconds.
+    """
+    return round(max(0.0, float(weeks)) * 10080, 2)
